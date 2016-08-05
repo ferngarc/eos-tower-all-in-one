@@ -1,0 +1,7 @@
+---
+- name: Revert the EOS Running Configuration to a default state
+  eos_command:
+    commands:
+      - 'configure replace {{ default_config }} force'
+    provider: '{{ provider }}'
+  when: default_config is defined

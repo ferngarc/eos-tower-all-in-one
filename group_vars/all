@@ -1,0 +1,49 @@
+---
+# make ansible play nice in a virtualenv
+# ansible_python_interpreter: python
+
+# Used for the reset role. Where to find the default config
+default_config: 'flash:default-config'
+
+# Connection to the devices
+provider:
+  host: '{{ eos_host_ip }}'
+  username: admin
+  password: admin
+  authorize: true
+  use_ssl: no
+  transport: eapi
+
+
+provide:
+  host: '{{ eos_host_ip }}'
+  username: admin
+  password: admin
+  authorize: yes
+  use_ssl: no
+  transport: cli
+
+
+pause_sec: 5
+
+# Upgrade related vars
+target_version: 4.15.0F
+swi_url: "flash:EOS-{{ target_version }}.swi"
+swi_dest: "flash:"
+install_pause: 90
+
+
+eos_debug: true
+
+eos_users:
+  - name: simplebob
+    nopassword: true
+    privilege: 0
+    role: network-operator
+
+cli_aliases:
+  - cc clear counters
+  - senz show interface counter error | nz
+  - snz show interface counter | nz
+  - sqnz show interface counter queue | nz
+  - srnz show interface counter rate | nz

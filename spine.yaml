@@ -1,0 +1,14 @@
+---
+- hosts: spine
+  gather_facts: no
+  connection: local
+  environment:
+    PYTHONPATH: '/usr/local/lib/python2.7/dist-packages/'
+
+  roles:
+    - arista.eos-system
+    - arista.eos-interfaces
+    - arista.eos-bridging
+    - arista.eos-ipv4
+    - arista.eos-route-control
+    - arista.eos-bgp
